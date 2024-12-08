@@ -27,3 +27,6 @@ variable "map" {
 output "map_print" {
   value = var.map
 }
+output "map_print1" {
+  value = var.map.name["first_name"]
+}
