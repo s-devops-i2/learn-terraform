@@ -1,4 +1,4 @@
-resource "aws_instance" "frontend" {
+resource "aws_instance" "front" {
   count =  5
   ami           = data.aws_instance.private_ip.ami
   instance_type = "t3.micro"
