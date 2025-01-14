@@ -11,5 +11,5 @@ module "vpc" {
   frontend_subnets        = var.frontend_subnets
   backend_subnets         = var.backend_subnets
   db_subnets              = var.db_subnets
-  availability_zone       = var.availability_zone
+  availability_zone       = var.avilability_zone
 }
