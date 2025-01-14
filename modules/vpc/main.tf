@@ -18,6 +18,7 @@ resource "aws_subnet" "frontend" {
 }
 
 resource "aws_route_table" "frontend" {
+  count  = length(var.frontend_subnets)
   vpc_id = aws_vpc.main.id
   route {
     cidr_block                = var.default_vpc_cidr_block
