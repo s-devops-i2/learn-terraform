@@ -25,9 +25,13 @@ resource "aws_route_table" "frontend" {
     vpc_peering_connection_id = var.peer_connection_id
 
   }
-
 }
 
+resource "aws_route_table_association" "frontend" {
+  count          = length(var.frontend_subnets)
+  subnet_id      = aws_subnet.frontend[count.index]
+  route_table_id = aws_route_table.frontend[count.index]
+}
 
 resource "aws_vpc_peering_connection" "peering" {
   peer_vpc_id = var.default_vpc_id
