@@ -9,4 +9,4 @@ variable "dev_vpc_cidr_block" {}
 variable "frontend_subnets" {}
 variable "backend_subnets" {}
 variable "db_subnets" {}
-variable "avilability_zone" {}
+variable "availability_zone" {}

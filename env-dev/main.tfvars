@@ -8,5 +8,5 @@ dev_vpc_cidr_block  = "10.10.0.0/24"
 frontend_subnets    = ["10.10.0.0/27","10.10.0.31"]
 backend_subnets     = ["10.10.0.32/27","10.10.0.63"]
 db_subnets          = ["10.10.0.64/27", "10.10.0.95"]
-avilability_zone    = ["us-east-1a", "us-east-1b"]
+availability_zone    = ["us-east-1a", "us-east-1b"]
 
