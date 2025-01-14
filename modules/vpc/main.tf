@@ -17,7 +17,7 @@ resource "aws_subnet" "frontend" {
   }
 }
 
-resource "aws_route_table" "frontend" {
+resource "aws_route_table" "frontend-rt" {
   count  = length(var.frontend_subnets)
   vpc_id = aws_vpc.main.id
   route {
@@ -25,12 +25,16 @@ resource "aws_route_table" "frontend" {
     vpc_peering_connection_id = var.peer_connection_id
 
   }
+
+  tags = {
+    Name = "${var.env}-frontend-rt${count.index+1}"
+  }
 }
 
-resource "aws_route_table_association" "frontend" {
+resource "aws_route_table_association" "frontend-rt-assoc" {
   count          = length(var.frontend_subnets)
-  subnet_id      = aws_subnet.frontend[count.index]
-  route_table_id = aws_route_table.frontend[count.index]
+  subnet_id      = aws_subnet.frontend[count.index].id
+  route_table_id = aws_route_table.frontend-rt[count.index].id
 }
 
 resource "aws_vpc_peering_connection" "peering" {
