@@ -24,3 +24,15 @@ resource "aws_vpc_peering_connection" "peering" {
     Name = "peer connection between ${var.env} vpc to default vpc"
   }
 }
+
+resource "aws_route" "main" {
+  route_table_id            = aws_vpc.main.default_route_table_id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = var.peer_connection_id
+}
+
+resource "aws_route" "default" {
+  route_table_id         = var.dev_route_table_id
+  destination_cidr_block = var.dev_vpc_cidr_block
+  vpc_peering_connection_id = var.peer_connection_id
+}
