@@ -12,3 +12,4 @@ variable "db_subnets" {}
 variable "availability_zone" {}
 variable "instance_type" {}
 variable "sg_id" {}
+variable "public_subnets" {}
