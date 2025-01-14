@@ -37,6 +37,68 @@ resource "aws_route_table_association" "frontend-rt-assoc" {
   route_table_id = aws_route_table.frontend-rt[count.index].id
 }
 
+resource "aws_subnet" "backend" {
+  count             = length(var.backend_subnets)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.backend_subnets[count.index]
+  availability_zone = var.availability_zone[count.index]
+
+  tags = {
+    Name = "backend-subnet${count.index+1}"
+  }
+}
+
+resource "aws_route_table" "backend-rt" {
+  count  = length(var.backend_subnets)
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block                = var.default_vpc_cidr_block
+    vpc_peering_connection_id = var.peer_connection_id
+
+  }
+
+  tags = {
+    Name = "${var.env}-backend-rt${count.index+1}"
+  }
+}
+
+resource "aws_route_table_association" "backend-rt-assoc" {
+  count          = length(var.backend_subnets)
+  subnet_id      = aws_subnet.backend[count.index].id
+  route_table_id = aws_route_table.backend-rt[count.index].id
+}
+
+resource "aws_subnet" "db" {
+  count             = length(var.db_subnets)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.db_subnets[count.index]
+  availability_zone = var.availability_zone[count.index]
+
+  tags = {
+    Name = "db-subnet${count.index+1}"
+  }
+}
+
+resource "aws_route_table" "db-rt" {
+  count  = length(var.db_subnets)
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block                = var.default_vpc_cidr_block
+    vpc_peering_connection_id = var.peer_connection_id
+
+  }
+
+  tags = {
+    Name = "${var.env}-db-rt${count.index+1}"
+  }
+}
+
+resource "aws_route_table_association" "db-rt-assoc" {
+  count          = length(var.db_subnets)
+  subnet_id      = aws_subnet.db[count.index].id
+  route_table_id = aws_route_table.db-rt[count.index].id
+}
+
 resource "aws_vpc_peering_connection" "peering" {
   peer_vpc_id = var.default_vpc_id
   vpc_id      = aws_vpc.main.id
