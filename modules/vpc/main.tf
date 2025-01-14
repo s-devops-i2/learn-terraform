@@ -99,6 +99,18 @@ resource "aws_route_table_association" "db-rt-assoc" {
   route_table_id = aws_route_table.db-rt[count.index].id
 }
 
+resource "aws_subnet" "public_subnet" {
+  count             = length(var.public_subnets)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.public_subnets[count.index]
+  availability_zone = var.availability_zone[count.index]
+
+  tags = {
+    Name = "public-subnet${count.index+1}"
+  }
+}
+
+
 resource "aws_vpc_peering_connection" "peering" {
   peer_vpc_id = var.default_vpc_id
   vpc_id      = aws_vpc.main.id

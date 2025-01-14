@@ -25,3 +25,25 @@ module "app" {
   subnet_id     = module.vpc.frontend_subnets
 
 }
+module "app" {
+  source = "./modules/app"
+
+  env           = var.env
+  instance_type = var.instance_type
+  sg_id         = var.sg_id
+  component     = "frontend"
+  vpc_id        = module.vpc.vpc_id
+  subnet_id     = module.vpc.frontend_subnets
+
+}
+module "app" {
+  source = "./modules/app"
+
+  env           = var.env
+  instance_type = var.instance_type
+  sg_id         = var.sg_id
+  component     = "frontend"
+  vpc_id        = module.vpc.vpc_id
+  subnet_id     = module.vpc.frontend_subnets
+
+}
