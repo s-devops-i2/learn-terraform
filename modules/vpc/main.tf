@@ -17,6 +17,16 @@ resource "aws_subnet" "frontend" {
   }
 }
 
+resource "aws_route_table" "frontend" {
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block                = var.default_vpc_cidr_block
+    vpc_peering_connection_id = var.peer_connection_id
+
+  }
+
+}
+
 
 resource "aws_vpc_peering_connection" "peering" {
   peer_vpc_id = var.default_vpc_id
