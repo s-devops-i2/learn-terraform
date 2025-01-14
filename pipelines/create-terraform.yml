@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
- terraform-tf-apply:
+ terraform-tf-applying:
   group: LearnTerraform
   label_template: ${COUNT}
   lock_behavior: none
