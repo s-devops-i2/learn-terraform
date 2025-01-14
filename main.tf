@@ -13,3 +13,11 @@ module "vpc" {
   db_subnets              = var.db_subnets
   availability_zone       = var.availability_zone
 }
+
+module "app" {
+  source = "./modules/app"
+
+  env           = var.env
+  instance_type = var.instance_type
+  sg_id         = var.sg_id
+}
