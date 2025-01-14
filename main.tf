@@ -8,4 +8,7 @@ module "vpc" {
   default_vpc_cidr_block  = var.default_vpc_cidr_block
   dev_vpc_cidr_block      = var.dev_vpc_cidr_block
   peer_connection_id      = var.peer_connection_id
+  frontend_subnets        = var.frontend_subnets
+  backend_subnets         = var.backend_subnets
+  db_subnets              = var.db_subnets
 }
